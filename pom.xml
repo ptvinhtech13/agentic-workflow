@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.4</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.vinta.agentic</groupId>
+    <artifactId>agentic-workflow</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>agentic-spring-ai-example</module>
+        <module>agentic-workflow-tree</module>
+    </modules>
+
+    <properties>
+        <lombok.version>1.18.34</lombok.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <spring-ai.version>1.0.0-M1</spring-ai.version>
+        <spring-boot.version>3.4.4</spring-boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless-maven-plugin.version}</version>
+                <configuration>
+                    <pom>
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+                        <sortPom>
+                            <expandEmptyElements>false</expandEmptyElements>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <sortModules>true</sortModules>
+                            <sortDependencies>groupId,artifactId,scope</sortDependencies>
+                            <sortDependencyManagement>groupId,artifactId,scope</sortDependencyManagement>
+                            <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
+                            <sortPlugins>groupId,artifactId</sortPlugins>
+                            <sortProperties>true</sortProperties>
+                            <sortModules>true</sortModules>
+                            <sortExecutions>true</sortExecutions>
+                        </sortPom>
+                        <lineEndings>UNIX</lineEndings>
+                    </pom>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+                        <eclipse>
+                            <file>eclipse-formatter.xml</file>
+                        </eclipse>
+                        <importOrder/>
+                        <removeUnusedImports/>
+                        <replaceRegex>
+                            <name>Remove wildcard imports</name>
+                            <searchRegex>import\s+[^\*\s]+\*;(\r\n|\r|\n)</searchRegex>
+                            <replacement>$1</replacement>
+                        </replaceRegex>
+                        <lineEndings>UNIX</lineEndings>
+                    </java>
+                    <sql>
+                        <includes>
+                            <include>src/main/resources/**/*.sql</include>
+                        </includes>
+                        <dbeaver/>
+                        <lineEndings>UNIX</lineEndings>
+                    </sql>
+                    <json>
+                        <includes>
+                            <!-- You have to set the target manually -->
+                            <include>*.json</include>
+                        </includes>
+                        <gson>
+                            <indentSpaces>4</indentSpaces>
+                            <sortByKeys>false</sortByKeys>
+                        </gson>
+                    </json>
+                    <upToDateChecking>
+                        <enabled>true</enabled>
+                        <indexFile>${project.basedir}/.spotless-index</indexFile>
+                    </upToDateChecking>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <release>${java.version}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-Amapstruct.unmappedTargetPolicy=ERROR</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
