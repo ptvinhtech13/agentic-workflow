@@ -1,4 +1,4 @@
-package io.vinta.agentic.tree.node;
+package io.vinta.agentic.tree.identifier;
 
 import lombok.Builder;
 

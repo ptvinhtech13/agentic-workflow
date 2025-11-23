@@ -1,4 +1,4 @@
-package io.vinta.agentic.tree.node.composite.sequence;
+package io.vinta.agentic.tree.node.composite.selector;
 
 import io.vinta.agentic.tree.execution.AgenticExecutionResult;
 import io.vinta.agentic.tree.identifier.NodeId;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @With
 @Builder
-public class SequenceNodeExecutionResult implements AgenticExecutionResult {
+public class SelectorNodeExecutionResult implements AgenticExecutionResult {
 	private final NodeId nodeId;
 	private final AgenticNodeStatus status;
 	private final Map<NodeId, AgenticExecutionResult> childrenResults;
