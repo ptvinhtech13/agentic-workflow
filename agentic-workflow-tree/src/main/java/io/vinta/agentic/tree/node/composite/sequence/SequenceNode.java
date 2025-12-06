@@ -47,7 +47,7 @@ public class SequenceNode extends CompositeNode {
 				return sequenceExecutionResult.withStatus(childExecutionResult.getStatus());
 			}
 		}
-		log.debug("SequenceNode {} completed successfully", getNodeId());
+		log.info("SequenceNode {} completed successfully", getNodeId());
 		return sequenceExecutionResult.withStatus(AgenticNodeStatus.SUCCESS);
 	}
 }

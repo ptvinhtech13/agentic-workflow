@@ -22,7 +22,7 @@ public class TaskNode extends LeafNode {
 	public AgenticExecutionResult onExecute(AgenticExecutionContext context) {
 		log.debug("Executing TaskNode: {}", getNodeId());
 		final var result = taskFunction.apply(context);
-		log.debug("TaskNode {} completed with status: {}", getNodeId(), result.getStatus());
+		log.info("TaskNode {} completed with status: {}", getNodeId(), result.getStatus());
 		return result;
 	}
 }

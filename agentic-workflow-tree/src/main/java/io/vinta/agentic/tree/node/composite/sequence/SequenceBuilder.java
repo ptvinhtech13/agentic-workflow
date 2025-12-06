@@ -15,8 +15,10 @@ import lombok.Getter;
 @Getter
 public class SequenceBuilder {
 	private final SequenceNode sequence;
+	private final NodeId nodeId;
 
 	public SequenceBuilder(NodeId nodeId) {
+		this.nodeId = nodeId;
 		this.sequence = SequenceNode.builder()
 				.nodeId(nodeId)
 				.build();
@@ -26,9 +28,6 @@ public class SequenceBuilder {
 		return task(NodeId.of(nodeId), taskFunc);
 	}
 
-	/**
-	 * Add a task node
-	 */
 	public SequenceBuilder task(NodeId nodeId, Function<AgenticExecutionContext, AgenticExecutionResult> taskFunc) {
 		sequence.addChild(TaskNode.builder()
 				.nodeId(nodeId)
@@ -37,9 +36,6 @@ public class SequenceBuilder {
 		return this;
 	}
 
-	/**
-	 * Add a conditional node, if condition is met, execute the child node, otherwise return SKIPPED
-	 */
 	public SequenceBuilder conditional(NodeId nodeId, Predicate<AgenticExecutionContext> condition, AgenticNode child) {
 		sequence.addChild(ConditionalNode.builder()
 				.nodeId(nodeId)
@@ -49,9 +45,6 @@ public class SequenceBuilder {
 		return this;
 	}
 
-	/**
-	 * Add a conditional node, if condition is met, execute the child node, otherwise return SKIPPED
-	 */
 	public SequenceBuilder conditionalOrElse(NodeId nodeId, Predicate<AgenticExecutionContext> condition,
 			AgenticNode child, AgenticNode orElseChild) {
 		sequence.addChild(ConditionalOrElseNode.builder()
@@ -63,9 +56,6 @@ public class SequenceBuilder {
 		return this;
 	}
 
-	/**
-	 * Add a nested sequence
-	 */
 	public SequenceBuilder sequence(NodeId nodeId, Consumer<SequenceBuilder> builder) {
 		SequenceBuilder nested = new SequenceBuilder(nodeId);
 		builder.accept(nested);
@@ -73,9 +63,6 @@ public class SequenceBuilder {
 		return this;
 	}
 
-	/**
-	 * Add any node
-	 */
 	public SequenceBuilder node(AgenticNode node) {
 		sequence.addChild(node);
 		return this;

@@ -5,6 +5,8 @@ import io.vinta.agentic.tree.identifier.WorkflowId;
 import io.vinta.agentic.tree.node.AgenticNode;
 import io.vinta.agentic.tree.node.composite.sequence.SequenceBuilder;
 import java.util.function.Consumer;
+
+import io.vinta.agentic.tree.node.composite.sequence.SequenceNode;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -38,6 +40,11 @@ public class AgenticWorkflowBuilder {
 
 	public AgenticWorkflowBuilder sequence(String nodeId, Consumer<SequenceBuilder> builder) {
 		return sequence(NodeId.of(nodeId), builder);
+	}
+
+	public AgenticWorkflowBuilder sequence(SequenceNode sequenceNode) {
+		this.rootNode = sequenceNode;
+		return this;
 	}
 
 	public AgenticWorkflowBuilder sequence(NodeId nodeId, Consumer<SequenceBuilder> builder) {
