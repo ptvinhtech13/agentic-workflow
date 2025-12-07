@@ -25,17 +25,14 @@ public class ConditionalNode extends DecoratorNode {
 	public AgenticExecutionResult onExecute(AgenticExecutionContext context) {
 		log.debug("Executing ConditionalNode: {}", getNodeId());
 		final var isConditionMet = conditionPredicate.test(context);
-		final var executionResult = SimpleAgenticExecutionResult.builder()
-				.nodeId(getNodeId())
-				.build();
 
 		if (!isConditionMet) {
 			log.debug("Condition not met for node {}, skipping child execution", getNodeId());
-			return executionResult.withStatus(AgenticNodeStatus.SKIPPED);
+			return new SimpleAgenticExecutionResult<>(AgenticNodeStatus.SKIPPED);
 		}
 		final var childResult = getChild().execute(context);
 		log.debug("Condition met for node {}, executed child with result: {}", getNodeId(), childResult.getStatus());
-		return executionResult.withStatus(childResult.getStatus());
+		return new SimpleAgenticExecutionResult<>(childResult.getStatus());
 
 	}
 }

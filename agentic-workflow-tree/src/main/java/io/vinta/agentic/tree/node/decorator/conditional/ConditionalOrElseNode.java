@@ -27,14 +27,11 @@ public class ConditionalOrElseNode extends DecoratorNode {
 	public AgenticExecutionResult onExecute(AgenticExecutionContext context) {
 		log.debug("Executing ConditionalNode: {}", getNodeId());
 		final var isConditionMet = conditionPredicate.test(context);
-		final var executionResult = SimpleAgenticExecutionResult.builder()
-				.nodeId(getNodeId())
-				.build();
 		final var childToExecute = isConditionMet ? getChild() : orElseChild;
 		final var childResult = childToExecute.execute(context);
 		log.debug("Condition {} for node {}, executed child {} with result: {}", isConditionMet ? "met" : "not met",
 				getNodeId(), childToExecute.getNodeId(), childResult.getStatus());
-		return executionResult.withStatus(childResult.getStatus());
+		return new SimpleAgenticExecutionResult<>(childResult.getStatus());
 
 	}
 }

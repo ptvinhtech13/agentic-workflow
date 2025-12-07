@@ -1,17 +1,19 @@
 package io.vinta.agentic.tree.execution;
 
-import io.vinta.agentic.tree.identifier.NodeId;
 import io.vinta.agentic.tree.node.AgenticNodeStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
 
 @Getter
-@Builder
 @With
+@AllArgsConstructor
 @RequiredArgsConstructor
-public class SimpleAgenticExecutionResult implements AgenticExecutionResult {
-	private final NodeId nodeId;
+@Builder
+public class SimpleAgenticExecutionResult<R> implements AgenticExecutionResult {
 	private final AgenticNodeStatus status;
+	private R result;
+	private Class<R> classType;
 }

@@ -30,7 +30,7 @@ public class SequenceNode extends CompositeNode {
 
 	@Override
 	public AgenticExecutionResult onExecute(AgenticExecutionContext context) {
-		log.debug("Executing SequenceNode: {}", getNodeId());
+		log.info("SequenceNode {} is executing", getNodeId());
 		final var sequenceExecutionResult = SequenceNodeExecutionResult.builder()
 				.nodeId(getNodeId())
 				.childrenResults(new HashMap<>())

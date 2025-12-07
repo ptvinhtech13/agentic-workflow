@@ -3,7 +3,7 @@ package io.vinta.agentic.tree.execution;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryAgenticExecutionResultRepository implements AgenticExecutionResultRepository {
+public class InMemoryAgenticExecutionMemoryRepository implements AgenticExecutionMemoryRepository {
 	private final Map<String, AgenticExecutionResult> agenticExecutionResultMap = new ConcurrentHashMap<>();
 
 	@Override

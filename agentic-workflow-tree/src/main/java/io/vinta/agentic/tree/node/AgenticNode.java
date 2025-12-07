@@ -22,7 +22,7 @@ public interface AgenticNode {
 			return result;
 		} catch (Exception e) {
 			onError(context);
-			return new SimpleAgenticExecutionResult(getNodeId(), AgenticNodeStatus.FAILURE);
+			return new SimpleAgenticExecutionResult<>(AgenticNodeStatus.FAILURE);
 		}
 	}
 
@@ -33,7 +33,7 @@ public interface AgenticNode {
 	AgenticExecutionResult onExecute(AgenticExecutionContext context);
 
 	default void onAfter(AgenticExecutionContext context, AgenticExecutionResult result) {
-		context.saveGlobalResult(result);
+		context.saveExecutionResult(getNodeId(), result);
 	}
 
 	default void onError(AgenticExecutionContext context) {
