@@ -6,11 +6,9 @@ import io.vinta.agentic.tree.identifier.ExecutionId;
 import io.vinta.agentic.tree.identifier.NodeId;
 import java.util.Optional;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.With;
 import lombok.extern.slf4j.Slf4j;
 
-@Getter
 @With
 @Slf4j
 public class AgenticExecutionContext {
@@ -28,11 +26,15 @@ public class AgenticExecutionContext {
 	}
 
 	public void saveExecutionResult(NodeId nodeId, AgenticExecutionResult result) {
-		final var executionResultId = "%s#%s".formatted(this.getExecutionId()
-				.id(), nodeId.id());
+		final var executionResultId = "%s#%s".formatted(this.executionId.id(), nodeId.id());
 		if (executionMemoryRepository.isExistsById(executionResultId)) {
 			log.warn("Overwriting existing execution result for executionResultId: {}", executionResultId);
 		}
 		executionMemoryRepository.save(executionResultId, result);
+	}
+
+	public Optional<AgenticExecutionResult> findExecutionMemoryByNodeId(NodeId nodeId) {
+		final var executionResultId = "%s#%s".formatted(this.executionId.id(), nodeId.id());
+		return executionMemoryRepository.findByExecutionResultId(executionResultId);
 	}
 }

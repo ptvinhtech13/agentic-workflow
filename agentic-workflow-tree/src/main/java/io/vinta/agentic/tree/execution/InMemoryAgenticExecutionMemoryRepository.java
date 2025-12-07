@@ -1,6 +1,7 @@
 package io.vinta.agentic.tree.execution;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryAgenticExecutionMemoryRepository implements AgenticExecutionMemoryRepository {
@@ -23,5 +24,13 @@ public class InMemoryAgenticExecutionMemoryRepository implements AgenticExecutio
 			throw new IllegalArgumentException("AgenticExecutionResult cannot be null");
 		}
 		agenticExecutionResultMap.put(executionResultId, result);
+	}
+
+	@Override
+	public Optional<AgenticExecutionResult> findByExecutionResultId(String executionResultId) {
+		if (executionResultId == null || executionResultId.isEmpty()) {
+			throw new IllegalArgumentException("ExecutionResultId cannot be null or empty");
+		}
+		return Optional.ofNullable(agenticExecutionResultMap.get(executionResultId));
 	}
 }

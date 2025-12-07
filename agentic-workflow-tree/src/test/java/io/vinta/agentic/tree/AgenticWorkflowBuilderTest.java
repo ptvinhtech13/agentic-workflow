@@ -9,6 +9,7 @@ import io.vinta.agentic.tree.identifier.NodeId;
 import io.vinta.agentic.tree.identifier.WorkflowId;
 import io.vinta.agentic.tree.node.AgenticNodeStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
@@ -24,10 +25,21 @@ class AgenticWorkflowBuilderTest {
 				})
 						.task("task-2", context -> {
 							// Task execution logic
-							return new SimpleAgenticExecutionResult<>(AgenticNodeStatus.SUCCESS);
+							return new SimpleAgenticExecutionResult<>(AgenticNodeStatus.SUCCESS, "Task 2 Result",
+									String.class);
 						})
 						.task("task-3", context -> {
 							// Task execution logic
+							final var result = context.findExecutionMemoryByNodeId(NodeId.of("task-2"));
+							Assertions.assertTrue(result.isPresent());
+							final var agenticExecutionResult = result.get();
+							Assertions.assertInstanceOf(SimpleAgenticExecutionResult.class, agenticExecutionResult);
+
+							SimpleAgenticExecutionResult<?> simpleResult = (SimpleAgenticExecutionResult<?>) agenticExecutionResult;
+							Assertions.assertEquals(AgenticNodeStatus.SUCCESS, simpleResult.getStatus());
+							Assertions.assertEquals(String.class, simpleResult.getClassType());
+							String resultValue = (String) simpleResult.getResult();
+							Assertions.assertEquals("Task 2 Result", resultValue);
 							return new SimpleAgenticExecutionResult<>(AgenticNodeStatus.SUCCESS);
 						}))
 				.workflowName("Sample Workflow")
