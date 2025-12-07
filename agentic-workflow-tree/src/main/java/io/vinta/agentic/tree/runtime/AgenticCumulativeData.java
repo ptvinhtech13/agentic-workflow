@@ -1,9 +1,9 @@
 package io.vinta.agentic.tree.runtime;
 
 public interface AgenticCumulativeData<T> {
-    String getNodeId();
+	String getNodeId();
 
-    Class<T> getClassRuntimeData();
+	Class<T> getClassRuntimeData();
 
-    T getRuntimeData();
+	T getRuntimeData();
 }

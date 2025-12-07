@@ -4,9 +4,8 @@ import io.vinta.agentic.tree.identifier.NodeId;
 import io.vinta.agentic.tree.identifier.WorkflowId;
 import io.vinta.agentic.tree.node.AgenticNode;
 import io.vinta.agentic.tree.node.composite.sequence.SequenceBuilder;
-import java.util.function.Consumer;
-
 import io.vinta.agentic.tree.node.composite.sequence.SequenceNode;
+import java.util.function.Consumer;
 import lombok.Builder;
 import lombok.Getter;
 
