@@ -21,12 +21,12 @@ Agentic Workflow Tree is designed from the ground up to **orchestrate multiple A
                     │    AGENTIC WORKFLOW TREE            │
                     │    (Central Orchestrator)           │
                     │                                     │
-                    │  ┌───────────────────────────┐     │
-                    │  │   Execution Engine        │     │
-                    │  │   • Control Flow          │     │
-                    │  │   • Memory Management     │     │
-                    │  │   • Agent Coordination    │     │
-                    │  └───────────────────────────┘     │
+                    │  ┌───────────────────────────┐      │
+                    │  │   Execution Engine        │      │
+                    │  │   • Control Flow          │      │
+                    │  │   • Memory Management     │      │
+                    │  │   • Agent Coordination    │      │
+                    │  └───────────────────────────┘      │
                     │                                     │
                     └──────────────┬──────────────────────┘
                                    │
@@ -94,7 +94,7 @@ Agentic Workflow Tree is designed from the ground up to **orchestrate multiple A
 │  │  Step 4: Content Generation                              │  │
 │  │  ┌────────────────────────────────┐                      │  │
 │  │  │ [Sequence] Multi-Stage Writing │                      │  │
-│  │  │  ├─ ✍️  Writer Agent           │                       │  │
+│  │  │  ├─ ✍️  Writer Agent           │                      │  │
 │  │  │  ├─ 👀 Reviewer Agent          │                      │  │ 
 │  │  │  └─ 🎨 Formatter Agent         │                      │  │ 
 │  │  │  Output: Final Report          │                      │  │
